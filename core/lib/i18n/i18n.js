@@ -203,12 +203,9 @@ function createIcuMessageFn(filename, fileStrings) {
 
       filenameToLookup = path.relative(LH_ROOT, filenameToLookup);
     } else {
-      if (!filename.startsWith('node_modules/')) {
-        throw new Error(`Provided UIString is invalid: ${filename}, ${keyname}.`);
-      }
       // `filename` might have been passed in as the exact i18n identifier
-      // already (see: stack-packs.js). Otherwise, the common case requires relativizing
-      // the absolute filename with LH_ROOT.
+      // already (see: stack-packs.js). Also the case for bundled lighthouse.
+      // Otherwise, the common case requires relativizing the absolute filename with LH_ROOT.
       filenameToLookup = filename;
     }
 
