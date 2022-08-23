@@ -189,23 +189,26 @@ function createIcuMessageFn(filename, fileStrings) {
     const keyname = Object.keys(mergedStrings).find(key => mergedStrings[key] === message);
     if (!keyname) throw new Error(`Could not locate: ${message}`);
 
-    // `message` can be a UIString defined within the provided `fileStrings`, or it could be
-    // one of the common strings found in `i18n.UIStrings`.
     let filenameToLookup;
-    if (keyname in fileStrings) {
+    if (!path.isAbsolute(filename) && filename.startsWith('node_modules/')) {
+      // `filename` might have been passed in as the exact i18n identifier
+      // already (see: stack-packs.js). Otherwise, the common case requires relativizing
+      // the absolute filename with LH_ROOT.
       filenameToLookup = filename;
-    } else if (keyname in UIStrings) {
-      filenameToLookup = getModulePath(import.meta);
     } else {
-      throw new Error('Provided UIString is invalid.');
-    }
+      // `message` can be a UIString defined within the provided `fileStrings`, or it could be
+      // one of the common strings found in `i18n.UIStrings`.
+      if (keyname in fileStrings) {
+        filenameToLookup = filename;
+      } else if (keyname in UIStrings) {
+        filenameToLookup = getModulePath(import.meta);
+      } else {
+        throw new Error('Provided UIString is invalid.');
+      }
 
-    // `filename` might have been passed in as the exact i18n identifier
-    // already (see: stack-packs.js). Otherwise, the common case requires relativizing
-    // the absolute filename with LH_ROOT.
-    if (path.isAbsolute(filenameToLookup)) {
       filenameToLookup = path.relative(LH_ROOT, filenameToLookup);
     }
+
     const unixStyleFilename = filenameToLookup.replace(/\\/g, '/');
     const i18nId = `${unixStyleFilename} | ${keyname}`;
 
