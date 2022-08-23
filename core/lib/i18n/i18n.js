@@ -190,7 +190,10 @@ function createIcuMessageFn(filename, fileStrings) {
     if (!keyname) throw new Error(`Could not locate: ${message}`);
 
     let filenameToLookup;
-    if (!path.isAbsolute(filename) && filename.startsWith('node_modules/')) {
+    if (!path.isAbsolute(filename)) {
+      if (!filename.startsWith('node_modules/')) {
+        throw new Error(`Provided UIString is invalid: ${filename}, ${keyname}.`);
+      }
       // `filename` might have been passed in as the exact i18n identifier
       // already (see: stack-packs.js). Otherwise, the common case requires relativizing
       // the absolute filename with LH_ROOT.
@@ -203,7 +206,7 @@ function createIcuMessageFn(filename, fileStrings) {
       } else if (keyname in UIStrings) {
         filenameToLookup = getModulePath(import.meta);
       } else {
-        throw new Error('Provided UIString is invalid.');
+        throw new Error(`Provided UIString is invalid: ${filename}, ${keyname}.`);
       }
 
       filenameToLookup = path.relative(LH_ROOT, filenameToLookup);
