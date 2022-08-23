@@ -63,6 +63,11 @@ function collectElements() {
       return [...labelElToArtifact.keys()].indexOf(labelEl);
     });
 
+    let preventsPaste;
+    if (inputEl.readOnly) {
+      preventsPaste = !inputEl.dispatchEvent(new ClipboardEvent('paste', {cancelable: true}));
+    }
+
     inputArtifacts.push({
       parentFormIndex,
       labelIndices,
@@ -76,6 +81,7 @@ function collectElements() {
         // Requires `--enable-features=AutofillShowTypePredictions`.
         prediction: inputEl.getAttribute('autofill-prediction'),
       },
+      preventsPaste,
       // @ts-expect-error - getNodeDetails put into scope via stringification
       node: getNodeDetails(inputEl),
     });
