@@ -5455,10 +5455,10 @@
         ]
       }
     },
-    "password-inputs-can-be-pasted-into": {
-      "id": "password-inputs-can-be-pasted-into",
-      "title": "Prevents users to paste into password fields",
-      "description": "Preventing password pasting undermines good security policy. [Learn more about user-friendly password fields](https://web.dev/password-inputs-can-be-pasted-into/).",
+    "inputs-can-be-pasted-into": {
+      "id": "inputs-can-be-pasted-into",
+      "title": "Prevents users to paste into input fields",
+      "description": "Preventing input pasting undermines good security policy (in the case of passwords) and is a UX anti-pattern (in the general case). [Learn more about user-friendly input fields](https://web.dev/password-inputs-can-be-pasted-into/).",
       "score": 0,
       "scoreDisplayMode": "binary",
       "details": {
@@ -5474,38 +5474,40 @@
           {
             "node": {
               "type": "node",
-              "lhId": "page-9-INPUT",
-              "path": "3,HTML,1,BODY,61,INPUT",
+              "lhId": "1-10-INPUT",
+              "path": "2,HTML,1,BODY,61,INPUT",
               "selector": "body > input",
               "boundingRect": {
-                "top": 1274,
-                "bottom": 1295,
+                "top": 1278,
+                "bottom": 1300,
                 "left": 192,
-                "right": 345,
-                "width": 153,
-                "height": 21
+                "right": 339,
+                "width": 147,
+                "height": 22
               },
               "snippet": "<input type=\"password\" onpaste=\"event.preventDefault();\">",
               "nodeLabel": "body > input"
-            }
+            },
+            "type": "password"
           },
           {
             "node": {
               "type": "node",
-              "lhId": "page-10-INPUT",
-              "path": "3,HTML,1,BODY,65,INPUT",
+              "lhId": "1-12-INPUT",
+              "path": "2,HTML,1,BODY,65,INPUT",
               "selector": "body > input",
               "boundingRect": {
-                "top": 1296,
-                "bottom": 1317,
-                "left": 165,
-                "right": 318,
-                "width": 153,
-                "height": 21
+                "top": 1301,
+                "bottom": 1322,
+                "left": 159,
+                "right": 306,
+                "width": 147,
+                "height": 22
               },
               "snippet": "<input type=\"password\" onpaste=\"return false;\">",
               "nodeLabel": "body > input"
-            }
+            },
+            "type": "password"
           }
         ]
       }
@@ -6569,7 +6571,7 @@
           "group": "best-practices-trust-safety"
         },
         {
-          "id": "password-inputs-can-be-pasted-into",
+          "id": "inputs-can-be-pasted-into",
           "weight": 1,
           "group": "best-practices-ux"
         },
@@ -8179,7 +8181,7 @@
       },
       {
         "startTime": 0,
-        "name": "lh:audit:password-inputs-can-be-pasted-into",
+        "name": "lh:audit:inputs-can-be-pasted-into",
         "duration": 100,
         "entryType": "measure"
       },
@@ -9209,7 +9211,7 @@
         "audits.label.details.headings[0].text",
         "audits[link-name].details.headings[0].text",
         "audits[object-alt].details.headings[0].text",
-        "audits[password-inputs-can-be-pasted-into].details.headings[0].text"
+        "audits[inputs-can-be-pasted-into].details.headings[0].text"
       ],
       "core/audits/accessibility/html-lang-valid.js | title": [
         "audits[html-lang-valid].title"
@@ -9551,11 +9553,11 @@
       "core/audits/dobetterweb/notification-on-start.js | description": [
         "audits[notification-on-start].description"
       ],
-      "core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | failureTitle": [
-        "audits[password-inputs-can-be-pasted-into].title"
+      "core/audits/dobetterweb/inputs-can-be-pasted-into.js | failureTitle": [
+        "audits[inputs-can-be-pasted-into].title"
       ],
-      "core/audits/dobetterweb/password-inputs-can-be-pasted-into.js | description": [
-        "audits[password-inputs-can-be-pasted-into].description"
+      "core/audits/dobetterweb/inputs-can-be-pasted-into.js | description": [
+        "audits[inputs-can-be-pasted-into].description"
       ],
       "core/audits/dobetterweb/uses-http2.js | title": [
         "audits[uses-http2].title"

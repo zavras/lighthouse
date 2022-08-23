@@ -12317,8 +12317,9 @@
           "attribute": null,
           "prediction": null
         },
+        "preventsPaste": true,
         "node": {
-          "lhId": "5-41-INPUT",
+          "lhId": "1-10-INPUT",
           "devtoolsNodePath": "2,HTML,1,BODY,61,INPUT",
           "selector": "body > input",
           "boundingRect": {
@@ -12344,8 +12345,9 @@
           "attribute": null,
           "prediction": null
         },
+        "preventsPaste": false,
         "node": {
-          "lhId": "5-42-INPUT",
+          "lhId": "1-11-INPUT",
           "devtoolsNodePath": "2,HTML,1,BODY,63,INPUT",
           "selector": "body > input",
           "boundingRect": {
@@ -12371,8 +12373,9 @@
           "attribute": null,
           "prediction": null
         },
+        "preventsPaste": true,
         "node": {
-          "lhId": "5-43-INPUT",
+          "lhId": "1-12-INPUT",
           "devtoolsNodePath": "2,HTML,1,BODY,65,INPUT",
           "selector": "body > input",
           "boundingRect": {

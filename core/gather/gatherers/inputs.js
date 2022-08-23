@@ -64,7 +64,7 @@ function collectElements() {
     });
 
     let preventsPaste;
-    if (inputEl.readOnly) {
+    if (!inputEl.readOnly) {
       preventsPaste = !inputEl.dispatchEvent(new ClipboardEvent('paste', {cancelable: true}));
     }
 

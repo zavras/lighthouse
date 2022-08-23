@@ -412,7 +412,7 @@ const defaultConfig = {
     'dobetterweb/no-document-write',
     'dobetterweb/js-libraries',
     'dobetterweb/notification-on-start',
-    'dobetterweb/password-inputs-can-be-pasted-into',
+    'dobetterweb/inputs-can-be-pasted-into',
     'dobetterweb/uses-http2',
     'dobetterweb/uses-passive-event-listeners',
     'seo/meta-description',
