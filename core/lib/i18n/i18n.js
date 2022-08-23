@@ -190,15 +190,7 @@ function createIcuMessageFn(filename, fileStrings) {
     if (!keyname) throw new Error(`Could not locate: ${message}`);
 
     let filenameToLookup;
-    if (!path.isAbsolute(filename)) {
-      if (!filename.startsWith('node_modules/')) {
-        throw new Error(`Provided UIString is invalid: ${filename}, ${keyname}.`);
-      }
-      // `filename` might have been passed in as the exact i18n identifier
-      // already (see: stack-packs.js). Otherwise, the common case requires relativizing
-      // the absolute filename with LH_ROOT.
-      filenameToLookup = filename;
-    } else {
+    if (path.isAbsolute(filename)) {
       // `message` can be a UIString defined within the provided `fileStrings`, or it could be
       // one of the common strings found in `i18n.UIStrings`.
       if (keyname in fileStrings) {
@@ -210,6 +202,14 @@ function createIcuMessageFn(filename, fileStrings) {
       }
 
       filenameToLookup = path.relative(LH_ROOT, filenameToLookup);
+    } else {
+      if (!filename.startsWith('node_modules/')) {
+        throw new Error(`Provided UIString is invalid: ${filename}, ${keyname}.`);
+      }
+      // `filename` might have been passed in as the exact i18n identifier
+      // already (see: stack-packs.js). Otherwise, the common case requires relativizing
+      // the absolute filename with LH_ROOT.
+      filenameToLookup = filename;
     }
 
     const unixStyleFilename = filenameToLookup.replace(/\\/g, '/');
