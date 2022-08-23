@@ -64,7 +64,14 @@ function collectElements() {
     });
 
     let preventsPaste;
-    if (!inputEl.readOnly) {
+    const isTextInput =
+      inputEl.type === 'password' ||
+      inputEl.type === 'text' ||
+      inputEl.type === 'search' ||
+      inputEl.type === 'tel' ||
+      inputEl.tagName === 'TEXTAREA' ||
+      (inputEl.inputMode && inputEl.inputMode !== 'none');
+    if (!inputEl.readOnly && isTextInput) {
       preventsPaste = !inputEl.dispatchEvent(new ClipboardEvent('paste', {cancelable: true}));
     }
 
