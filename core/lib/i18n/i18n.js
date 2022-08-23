@@ -189,8 +189,14 @@ function createIcuMessageFn(filename, fileStrings) {
     const keyname = Object.keys(mergedStrings).find(key => mergedStrings[key] === message);
     if (!keyname) throw new Error(`Could not locate: ${message}`);
 
-    const filenameToLookup = keyname in fileStrings ? filename : getModulePath(import.meta);
-    const unixStyleFilename = path.relative(LH_ROOT, filenameToLookup).replace(/\\/g, '/');
+    let filenameToLookup = keyname in fileStrings ? filename : getModulePath(import.meta);
+    // `filename` might have been passed in as the exact i18n identifier
+    // already (see: stack-packs.js). Otherwise, the common case requires relativizing
+    // the absolute filename with LH_ROOT.
+    if (path.isAbsolute(filenameToLookup)) {
+      filenameToLookup = path.relative(LH_ROOT, filenameToLookup);
+    }
+    const unixStyleFilename = filenameToLookup.replace(/\\/g, '/');
     const i18nId = `${unixStyleFilename} | ${keyname}`;
 
     return {
