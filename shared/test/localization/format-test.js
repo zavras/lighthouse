@@ -12,6 +12,7 @@ import * as constants from '../../../core/config/constants.js';
 import * as format from '../../localization/format.js';
 import {locales} from '../../localization/locales.js';
 import {getModuleDirectory, getModulePath} from '../../../esm-utils.js';
+import {LH_ROOT} from '../../../root.js';
 
 const moduleDir = getModuleDirectory(import.meta);
 const modulePath = getModulePath(import.meta);
@@ -187,7 +188,7 @@ describe('format', () => {
     });
 
     it('overwrites existing locale strings', async () => {
-      const filename = 'core/audits/is-on-https.js';
+      const filename = `${LH_ROOT}/core/audits/is-on-https.js`;
       const {UIStrings} = await import('../../../core/audits/is-on-https.js');
       const str_ = i18n.createIcuMessageFn(filename, UIStrings);
 
