@@ -163,4 +163,7 @@ if (typeof window !== 'undefined') {
 
 export {
   runLighthouseInLR,
+  lighthouse,
+  listenForStatus,
+  LR_PRESETS,
 };

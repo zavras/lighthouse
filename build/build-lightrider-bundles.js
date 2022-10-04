@@ -10,7 +10,7 @@ import path from 'path';
 import {rollup} from 'rollup';
 
 import * as rollupPlugins from './rollup-plugins.js';
-import {buildBundle} from './build-bundle.js';
+import {buildLrBundle} from './build-bundle.js';
 import {LH_ROOT} from '../root.js';
 
 const distDir = path.join(LH_ROOT, 'dist', 'lightrider');
@@ -24,7 +24,7 @@ fs.mkdirSync(distDir, {recursive: true});
 function buildEntryPoint() {
   const inFile = `${sourceDir}/${entrySourceName}`;
   const outFile = `${distDir}/${entryDistName}`;
-  return buildBundle(inFile, outFile, {minify: false});
+  return buildLrBundle(inFile, outFile, {minify: false});
 }
 
 async function buildReportGenerator() {

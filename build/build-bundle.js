@@ -75,7 +75,7 @@ const banner = `
  * @param {{minify: boolean}=} opts
  * @return {Promise<void>}
  */
-async function buildBundle(entryPath, distPath, opts = {minify: true}) {
+async function buildLrBundle(entryPath, distPath, opts = {minify: true}) {
   if (fs.existsSync(LH_ROOT + '/lighthouse-logger/node_modules')) {
     throw new Error('delete `lighthouse-logger/node_modules` because it messes up rollup bundle');
   }
@@ -231,7 +231,8 @@ async function buildBundle(entryPath, distPath, opts = {minify: true}) {
   await bundle.write({
     file: distPath,
     banner,
-    format: 'iife',
+    format: 'umd',
+    name: 'lightriderBundle',
     sourcemap: DEBUG,
     // Suppress code splitting.
     inlineDynamicImports: true,
@@ -246,7 +247,7 @@ async function cli(argv) {
   // Take paths relative to cwd and build.
   const [entryPath, distPath] = argv.slice(2)
     .map(filePath => path.resolve(process.cwd(), filePath));
-  await buildBundle(entryPath, distPath, {minify: !process.env.DEBUG});
+  await buildLrBundle(entryPath, distPath, {minify: !process.env.DEBUG});
 }
 
 // Test if called from the CLI or as a module.
@@ -255,5 +256,5 @@ if (esMain(import.meta)) {
 }
 
 export {
-  buildBundle,
+  buildLrBundle,
 };
