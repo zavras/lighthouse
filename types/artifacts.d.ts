@@ -122,6 +122,7 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   Accessibility: Artifacts.Accessibility;
   /** Array of all anchors on the page. */
   AnchorElements: Artifacts.AnchorElement[];
+  /** Errors when attempting to use the back/forward cache. */
   BFCacheErrors: Artifacts.BFCacheErrors;
   /** Array of all URLs cached in CacheStorage. */
   CacheContents: string[];
