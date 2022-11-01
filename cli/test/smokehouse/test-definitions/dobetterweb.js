@@ -7,11 +7,6 @@
 /** @type {LH.Config.Json} */
 const config = {
   extends: 'lighthouse:default',
-  settings: {
-    // BF cache will request the page again, initiating additional network requests.
-    // Disable the audit so we only detect requests from the normal page load.
-    skipAudits: ['bf-cache'],
-  },
   audits: [
     // Test the `ignoredPatterns` audit option.
     {path: 'errors-in-console', options: {ignoredPatterns: ['An ignored error']}},

@@ -13,10 +13,6 @@ const config = {
     // webpages present here, hence the inclusion of 'best-practices'.
     onlyCategories: ['performance', 'best-practices'],
 
-    // BF cache will request the page again, initiating additional network requests.
-    // Disable the audit so we only detect requests from the normal page load.
-    skipAudits: ['bf-cache'],
-
     // A mixture of under, over, and meeting budget to exercise all paths.
     budgets: [{
       path: '/',
