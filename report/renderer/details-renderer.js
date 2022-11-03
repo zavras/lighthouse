@@ -53,7 +53,12 @@ export class DetailsRenderer {
         return this._renderList(details);
       case 'table':
       case 'opportunity':
-        return this._renderTable(details);
+      {
+        // Defer rendering of hidden tables, for a faster FCP
+        const tableElem = this._dom.createElement('table', 'lh-table');
+        setTimeout(() => this._renderTable(details, tableElem));
+        return tableElem;
+      }
       case 'criticalrequestchain':
         return CriticalRequestChainRenderer.render(this._dom, details, this);
 
@@ -377,12 +382,12 @@ export class DetailsRenderer {
 
   /**
    * @param {{headings: TableColumnHeading[], items: TableItem[]}} details
+   * @param {Element} tableElem
    * @return {Element}
    */
-  _renderTable(details) {
+  _renderTable(details, tableElem) {
     if (!details.items.length) return this._dom.createElement('span');
 
-    const tableElem = this._dom.createElement('table', 'lh-table');
     const theadElem = this._dom.createChildOf(tableElem, 'thead');
     const theadTrElem = this._dom.createChildOf(theadElem, 'tr');
 
