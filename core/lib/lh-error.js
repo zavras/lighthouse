@@ -160,25 +160,19 @@ class LighthouseError extends Error {
       // Remove class props so that remaining values were what was passed in as `properties`.
       // eslint-disable-next-line no-unused-vars
       const {name, code, message, friendlyMessage, lhrRuntimeError, stack, cause, ...properties} = err;
-      const serializedCause = cause ?
-        LighthouseError.stringifyReplacer(/** @type {Error} */ (cause)) :
-        undefined;
 
       return {
         sentinel: LHERROR_SENTINEL,
         code,
         stack,
-        cause: serializedCause,
+        cause: /** @type {any} */ (cause),
         properties: /** @type {{ [p: string]: string | undefined }} */ (properties),
       };
     }
 
     // Unexpected errors won't be LighthouseErrors, but we want them serialized as well.
     if (err instanceof Error) {
-      const {message, stack} = err;
-      const serializedCause = err.cause ?
-        LighthouseError.stringifyReplacer(/** @type {Error} */ (err.cause)) :
-        undefined;
+      const {message, stack, cause} = err;
       // @ts-expect-error - code can be helpful for e.g. node errors, so preserve it if it's present.
       const code = err.code;
       return {
@@ -186,7 +180,7 @@ class LighthouseError extends Error {
         message,
         code,
         stack,
-        cause: serializedCause,
+        cause: /** @type {any} */ (cause),
       };
     }
 
