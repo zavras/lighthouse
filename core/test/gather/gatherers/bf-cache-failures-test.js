@@ -4,7 +4,7 @@
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 
-import BFCache from '../../../gather/gatherers/bf-cache.js';
+import BFCacheFailures from '../../../gather/gatherers/bf-cache-failures.js';
 import {createMockContext} from '../mock-driver.js';
 
 /**
@@ -39,7 +39,7 @@ function createMockBfCacheEvent() {
   };
 }
 
-describe('BFCacheErrors', () => {
+describe('BFCacheFailures', () => {
   /** @type {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'>} */
   let context;
   let mockContext = createMockContext();
@@ -78,7 +78,7 @@ describe('BFCacheErrors', () => {
   });
 
   it('actively triggers bf cache in navigation mode', async () => {
-    const gatherer = new BFCache();
+    const gatherer = new BFCacheFailures();
     const artifact = await gatherer.getArtifact(context);
 
     expect(mockContext.driver.defaultSession.sendCommand)
@@ -101,7 +101,7 @@ describe('BFCacheErrors', () => {
   });
 
   it('actively triggers bf cache in legacy navigation mode', async () => {
-    const gatherer = new BFCache();
+    const gatherer = new BFCacheFailures();
     const artifact = await gatherer.afterPass(mockContext.asLegacyContext(), {
       devtoolsLog: context.dependencies.DevtoolsLog,
       networkRecords: [],
@@ -133,7 +133,7 @@ describe('BFCacheErrors', () => {
       params: createMockBfCacheEvent(),
     }];
 
-    const gatherer = new BFCache();
+    const gatherer = new BFCacheFailures();
     const artifact = await gatherer.getArtifact(context);
 
     expect(mockContext.driver.defaultSession.sendCommand)
@@ -158,7 +158,7 @@ describe('BFCacheErrors', () => {
   it('constructs a tree with no frame urls if no frame tree is provided', async () => {
     delete mockActiveBfCacheEvent?.notRestoredExplanationsTree;
 
-    const gatherer = new BFCache();
+    const gatherer = new BFCacheFailures();
     const artifact = await gatherer.getArtifact(context);
 
     expect(mockContext.driver.defaultSession.sendCommand)
@@ -183,7 +183,7 @@ describe('BFCacheErrors', () => {
   it('returns an empty list if no events were found passively or actively', async () => {
     mockActiveBfCacheEvent = undefined;
 
-    const gatherer = new BFCache();
+    const gatherer = new BFCacheFailures();
     const artifact = await gatherer.getArtifact(context);
 
     expect(mockContext.driver.defaultSession.sendCommand)

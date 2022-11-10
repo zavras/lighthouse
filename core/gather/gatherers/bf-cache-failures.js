@@ -8,7 +8,7 @@ import FRGatherer from '../base-gatherer.js';
 import {waitForFrameNavigated, waitForLoadEvent} from '../driver/wait-for-condition.js';
 import DevtoolsLog from './devtools-log.js';
 
-class BFCache extends FRGatherer {
+class BFCacheFailures extends FRGatherer {
   /** @type {LH.Gatherer.GathererMeta<'DevtoolsLog'>} */
   meta = {
     supportedModes: ['navigation', 'timespan'],
@@ -17,7 +17,7 @@ class BFCache extends FRGatherer {
 
   /**
    * @param {LH.Crdp.Page.BackForwardCacheNotRestoredExplanation[]} errorList
-   * @return {LH.Artifacts.ProcessedBFCacheEvent}
+   * @return {LH.Artifacts.BFCacheFailure}
    */
   static processBFCacheEventList(errorList) {
     /** @type {LH.Artifacts.BFCacheNotRestoredReasonsTree} */
@@ -37,7 +37,7 @@ class BFCache extends FRGatherer {
 
   /**
    * @param {LH.Crdp.Page.BackForwardCacheNotRestoredExplanationTree} errorTree
-   * @return {LH.Artifacts.ProcessedBFCacheEvent}
+   * @return {LH.Artifacts.BFCacheFailure}
    */
   static processBFCacheEventTree(errorTree) {
     /** @type {LH.Artifacts.BFCacheNotRestoredReasonsTree} */
@@ -70,13 +70,13 @@ class BFCache extends FRGatherer {
 
   /**
    * @param {LH.Crdp.Page.BackForwardCacheNotUsedEvent|undefined} event
-   * @return {LH.Artifacts.ProcessedBFCacheEvent}
+   * @return {LH.Artifacts.BFCacheFailure}
    */
   static processBFCacheEvent(event) {
     if (event?.notRestoredExplanationsTree) {
-      return BFCache.processBFCacheEventTree(event.notRestoredExplanationsTree);
+      return BFCacheFailures.processBFCacheEventTree(event.notRestoredExplanationsTree);
     }
-    return BFCache.processBFCacheEventList(event?.notRestoredExplanations || []);
+    return BFCacheFailures.processBFCacheEventList(event?.notRestoredExplanations || []);
   }
 
   /**
@@ -132,7 +132,7 @@ class BFCache extends FRGatherer {
 
   /**
    * @param {LH.Gatherer.FRTransitionalContext<'DevtoolsLog'>} context
-   * @return {Promise<LH.Artifacts['BFCache']>}
+   * @return {Promise<LH.Artifacts['BFCacheFailures']>}
    */
   async getArtifact(context) {
     const events = this.passivelyCollectBFCacheEvent(context);
@@ -141,18 +141,18 @@ class BFCache extends FRGatherer {
       if (activelyCollectedEvent) events.push(activelyCollectedEvent);
     }
 
-    return events.map(BFCache.processBFCacheEvent);
+    return events.map(BFCacheFailures.processBFCacheEvent);
   }
 
   /**
    * @param {LH.Gatherer.PassContext} passContext
    * @param {LH.Gatherer.LoadData} loadData
-   * @return {Promise<LH.Artifacts['BFCache']>}
+   * @return {Promise<LH.Artifacts['BFCacheFailures']>}
    */
   async afterPass(passContext, loadData) {
     return this.getArtifact({...passContext, dependencies: {DevtoolsLog: loadData.devtoolsLog}});
   }
 }
 
-export default BFCache;
+export default BFCacheFailures;
 

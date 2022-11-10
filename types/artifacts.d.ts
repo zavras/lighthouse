@@ -123,7 +123,7 @@ export interface GathererArtifacts extends PublicGathererArtifacts,LegacyBaseArt
   /** Array of all anchors on the page. */
   AnchorElements: Artifacts.AnchorElement[];
   /** Errors when attempting to use the back/forward cache. */
-  BFCache: Artifacts.ProcessedBFCacheEvent[];
+  BFCacheFailures: Artifacts.BFCacheFailure[];
   /** Array of all URLs cached in CacheStorage. */
   CacheContents: string[];
   /** CSS coverage information for styles used by page's final state. */
@@ -418,7 +418,7 @@ declare module Artifacts {
 
   type BFCacheNotRestoredReasonsTree = Record<LH.Crdp.Page.BackForwardCacheNotRestoredReasonType, BFCacheReasonMap>;
 
-  interface ProcessedBFCacheEvent {
+  interface BFCacheFailure {
     notRestoredReasonsTree: BFCacheNotRestoredReasonsTree;
   }
 
