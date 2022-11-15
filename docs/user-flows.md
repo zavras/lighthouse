@@ -40,12 +40,12 @@ In DevTools, navigation is easy: ensure it's the selected mode and then click _A
 ```js
 import {writeFileSync} from 'fs';
 import puppeteer from 'puppeteer';
-import lighthouse from 'lighthouse/core/api.js';
+import {startFlow} from 'lighthouse';
 
 (async function() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const flow = await lighthouse.startFlow(page);
+  const flow = await startFlow(page);
 
   // Navigate with a URL
   await flow.navigate('https://example.com');
@@ -90,13 +90,13 @@ In DevTools, select "Timespan" as the mode and click _Start timespan_. Record wh
 ```js
 import {writeFileSync} from 'fs';
 import puppeteer from 'puppeteer';
-import lighthouse from 'lighthouse/core/api.js';
+import {startFlow} from 'lighthouse';
 
 (async function() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://secret.login');
-  const flow = await lighthouse.startFlow(page);
+  const flow = await startFlow(page);
 
   await flow.beginTimespan();
   await page.type('#password', 'L1ghth0useR0cks!');
@@ -125,13 +125,13 @@ In DevTools, select "Snapshot" as the mode. Set up the page in the state you wan
 ```js
 import {writeFileSync} from 'fs';
 import puppeteer from 'puppeteer';
-import lighthouse from 'lighthouse/core/api.js';
+import {startFlow} from 'lighthouse';
 
 (async function() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://example.com');
-  const flow = await lighthouse.startFlow(page);
+  const flow = await startFlow(page);
 
   await page.click('#expand-sidebar');
   await flow.snapshot();
@@ -164,7 +164,7 @@ The below example codifies a user flow for an ecommerce site where the user navi
 import {writeFileSync} from 'fs';
 import puppeteer from 'puppeteer';
 import * as pptrTestingLibrary from 'pptr-testing-library';
-import lighthouse from 'lighthouse/core/api.js';
+import {startFlow} from 'lighthouse';
 
 const {getDocument, queries} = pptrTestingLibrary;
 
@@ -182,7 +182,7 @@ async function search(page) {
   // Setup the browser and Lighthouse.
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  const flow = await lighthouse.startFlow(page);
+  const flow = await startFlow(page);
 
   // Phase 1 - Navigate to the landing page.
   await flow.navigate('https://www.bestbuy.com');
