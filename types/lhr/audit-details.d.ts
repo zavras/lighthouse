@@ -184,6 +184,9 @@ declare module Details {
 
     displayUnit?: string;
     granularity?: number;
+
+    /** Ignore this column while aggregating. */
+    dontAggregate?: boolean;
   }
 
   interface TableItem {

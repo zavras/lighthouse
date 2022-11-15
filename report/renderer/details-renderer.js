@@ -405,7 +405,7 @@ export class DetailsRenderer {
     /** @type {string[]} */
     const aggregateKeys = [];
     for (const heading of headings) {
-      if (!heading.key) continue;
+      if (!heading.key || heading.dontAggregate) continue;
       if ('valueType' in heading && supportedAggregations.includes(heading.valueType)) {
         aggregateKeys.push(heading.key);
       }
@@ -468,7 +468,7 @@ export class DetailsRenderer {
         for (const item of details.items.filter((item) => item.entity === group.entity)) {
           aggregateFragment.append(this._renderTableRowsFromItem(item, details.headings));
         }
-        const renderedRows = this._dom.findAll('tr', aggregateFragment)
+        const renderedRows = this._dom.findAll('tr', aggregateFragment);
         for (const rowEl of renderedRows) {
           // For zebra styling.
           rowEl.classList.add(even ? 'lh-row--even' : 'lh-row--odd');
