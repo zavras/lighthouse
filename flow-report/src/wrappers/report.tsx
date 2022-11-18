@@ -29,11 +29,12 @@ function convertAnchor(link: HTMLAnchorElement, index: number) {
   link.replaceWith(newLink);
 }
 
-export const Report: FunctionComponent<{hashState: LH.FlowResult.HashState}> =
+export const Report: FunctionComponent<{hashState: LH.HashState}> =
 ({hashState}) => {
   const ref = useExternalRenderer<HTMLDivElement>(() => {
     return renderReport(hashState.currentLhr, {
-      disableAutoDarkModeAndFireworks: true,
+      disableFireworks: true,
+      disableDarkMode: true,
       omitTopbar: true,
       omitGlobalStyles: true,
       onPageAnchorRendered: link => convertAnchor(link, hashState.index),

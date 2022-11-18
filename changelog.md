@@ -1,3 +1,224 @@
+<a name="9.5.0"></a>
+# 9.5.0 (2022-03-09)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.4.0...v9.5.0)
+
+We expect this release to ship in the DevTools of [Chrome 101](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+
+## New Contributors
+
+Thanks to our new contributor 👽🐷🐰🐯🐻!
+
+- Marc Hassan @mhassan1
+
+## Core
+
+* full-page-screenshot: leave emulated width unchanged ([#13643](https://github.com/GoogleChrome/lighthouse/pull/13643))
+* inspector-issues: update sameSiteCookie to cookie ([#13708](https://github.com/GoogleChrome/lighthouse/pull/13708))
+* script-treemap-data: correct value for size ([#13716](https://github.com/GoogleChrome/lighthouse/pull/13716))
+* lighthouse-logger: convert to ES modules ([#13720](https://github.com/GoogleChrome/lighthouse/pull/13720))
+
+## ⛏️👷 Fraggle Rock
+
+  Support for auditing user flows ([#11313](https://github.com/GoogleChrome/lighthouse/issues/11313))
+
+* separate audit phase for flows ([#13623](https://github.com/GoogleChrome/lighthouse/pull/13623))
+* use frame url in gather context ([#13699](https://github.com/GoogleChrome/lighthouse/pull/13699))
+* add `logLevel` to config context ([#13681](https://github.com/GoogleChrome/lighthouse/pull/13681))
+* user-flow: audit flow from artifacts json ([#13715](https://github.com/GoogleChrome/lighthouse/pull/13715))
+
+## Report
+
+* fix timespan/snapshot sticky header ([#13732](https://github.com/GoogleChrome/lighthouse/pull/13732))
+
+## Deps
+
+* lodash: replace `lodash` per-method packages with full `lodash` ([#13695](https://github.com/GoogleChrome/lighthouse/pull/13695))
+* snyk: update snyk snapshot ([#13731](https://github.com/GoogleChrome/lighthouse/pull/13731) [#13712](https://github.com/GoogleChrome/lighthouse/pull/13712))
+
+## Clients
+
+* convert devtools and lightrider entries to ES modules ([#13722](https://github.com/GoogleChrome/lighthouse/pull/13722))
+
+## Tests
+
+* add more cases for oopif smoke test ([#13705](https://github.com/GoogleChrome/lighthouse/pull/13705))
+* devtools: add yarn install timeout ([#13717](https://github.com/GoogleChrome/lighthouse/pull/13717))
+* devtools: update Lighthouse sniffer for smokes ([#13693](https://github.com/GoogleChrome/lighthouse/pull/13693))
+* devtools: navigation web test ([#13673](https://github.com/GoogleChrome/lighthouse/pull/13673))
+* smoke: enable more devtools smoke tests ([#13624](https://github.com/GoogleChrome/lighthouse/pull/13624))
+* smoke: add _excludes and _runner ([#13707](https://github.com/GoogleChrome/lighthouse/pull/13707))
+
+## Misc
+
+* support --chrome-flags in run devtools script ([#13625](https://github.com/GoogleChrome/lighthouse/pull/13625))
+
+<a name="9.4.0"></a>
+# 9.4.0 (2022-02-16)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.3.1...v9.4.0)
+
+We expect this release to ship in the DevTools of [Chrome 100](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+
+## Notable Changes
+
+* Allow auditing of navigations triggered by user interactions in user flows. See our [user flow docs](https://github.com/GoogleChrome/lighthouse/blob/main/docs/user-flows.md) for more info. ([#13496](https://github.com/GoogleChrome/lighthouse/pull/13496))
+
+## Core
+
+* a11y: change link in category description to web.dev ([#13638](https://github.com/GoogleChrome/lighthouse/pull/13638))
+* full-page-screenshot: wait for doubleraf, network quiet ([#13663](https://github.com/GoogleChrome/lighthouse/pull/13663))
+* hreflang: remove eval, import axe valid-langs.js directly ([#13385](https://github.com/GoogleChrome/lighthouse/pull/13385))
+* inputs: refactor form-elements gatherer ([#13662](https://github.com/GoogleChrome/lighthouse/pull/13662), [#13671](https://github.com/GoogleChrome/lighthouse/pull/13671))
+* page-functions: set style in getOuterHTMLSnippet without violating CSP ([#13636](https://github.com/GoogleChrome/lighthouse/pull/13636))
+* runner: independent gather and audit functions ([#13569](https://github.com/GoogleChrome/lighthouse/pull/13569))
+* uses-long-cache-ttl: ignore `stale-while-revalidate` ([#13612](https://github.com/GoogleChrome/lighthouse/pull/13612))
+
+## Report
+
+* add options onPrintOverride and onSaveFileOverride ([#13529](https://github.com/GoogleChrome/lighthouse/pull/13529))
+* add options disableFireworks and disableDarkMode ([#13649](https://github.com/GoogleChrome/lighthouse/pull/13649))
+* add onViewTrace to renderer options ([#13528](https://github.com/GoogleChrome/lighthouse/pull/13528))
+* remove pausing fireworks on click ([#13650](https://github.com/GoogleChrome/lighthouse/pull/13650))
+* fix fireworks ([#13635](https://github.com/GoogleChrome/lighthouse/pull/13635))
+
+## Deps
+
+* sentry: move from raven to @sentry/node ([#9325](https://github.com/GoogleChrome/lighthouse/pull/9325))
+* snyk: update snyk snapshot ([#13669](https://github.com/GoogleChrome/lighthouse/pull/13669), [#13644](https://github.com/GoogleChrome/lighthouse/pull/13644), [#13616](https://github.com/GoogleChrome/lighthouse/pull/13616))
+
+## Tests
+
+* use simpler assertion in report-renderer-axe-test.js ([#13658](https://github.com/GoogleChrome/lighthouse/pull/13658))
+* fix single node a11y tests ([#13626](https://github.com/GoogleChrome/lighthouse/pull/13626))
+* devtools: sync ([#13656](https://github.com/GoogleChrome/lighthouse/pull/13656))
+* devtools: update report resource names ([#13615](https://github.com/GoogleChrome/lighthouse/pull/13615))
+* smoke: test array `_includes` and `lhr.timing` ([#13619](https://github.com/GoogleChrome/lighthouse/pull/13619))
+
+## Misc
+
+* temporarily remove brendan from triage rotation ([#13618](https://github.com/GoogleChrome/lighthouse/pull/13618))
+
+<a name="9.3.1"></a>
+# 9.3.1 (2022-01-31)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.3.0...v9.3.1)
+
+## Report
+
+* disable fireworks with flag ([#13610](https://github.com/GoogleChrome/lighthouse/pull/13610))
+
+<a name="9.3.0"></a>
+# 9.3.0 (2022-01-31)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.2.0...v9.3.0)
+
+We expect this release to ship in the DevTools of [Chrome 100](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+
+## Core
+
+* preload-lcp-image: enable audit ([#13599](https://github.com/GoogleChrome/lighthouse/pull/13599))
+* ensure good and average scores start exactly at control points ([#13559](https://github.com/GoogleChrome/lighthouse/pull/13559))
+* fr: don't throw on unknown --only-categories value ([#13499](https://github.com/GoogleChrome/lighthouse/pull/13499))
+* inspector-issues: collect all issue types ([#13462](https://github.com/GoogleChrome/lighthouse/pull/13462), [#13603](https://github.com/GoogleChrome/lighthouse/pull/13603), [#13595](https://github.com/GoogleChrome/lighthouse/pull/13595))
+* object-alt: remove md syntax around "alt" ([#13517](https://github.com/GoogleChrome/lighthouse/pull/13517))
+* runner: asset manager helper ([#13519](https://github.com/GoogleChrome/lighthouse/pull/13519))
+
+## CLI
+
+* remove update-notifier ([#13588](https://github.com/GoogleChrome/lighthouse/pull/13588))
+* asset-saver: end devtoolsLog with a newline ([#13566](https://github.com/GoogleChrome/lighthouse/pull/13566))
+
+## Report
+
+* allow client to configure how save-html is implemented ([#13518](https://github.com/GoogleChrome/lighthouse/pull/13518))
+
+## Deps
+
+* update various runtime deps ([#13483](https://github.com/GoogleChrome/lighthouse/pull/13483))
+* update various devDeps ([#13485](https://github.com/GoogleChrome/lighthouse/pull/13485))
+* update robots-parser to latest ([#13554](https://github.com/GoogleChrome/lighthouse/pull/13554))
+* update transitive deps to quiet vulnerability alerts ([#13538](https://github.com/GoogleChrome/lighthouse/pull/13538))
+* lighthouse-stack-packs: upgrade to 1.7.0 ([#13604](https://github.com/GoogleChrome/lighthouse/pull/13604))
+* snyk: update snyk snapshot ([#13498](https://github.com/GoogleChrome/lighthouse/pull/13498), [#13598](https://github.com/GoogleChrome/lighthouse/pull/13598))
+* yargs: upgrade to 17.3.1 ([#13590](https://github.com/GoogleChrome/lighthouse/pull/13590))
+* yargs-parser: upgrade to 21.0.0 ([#13597](https://github.com/GoogleChrome/lighthouse/pull/13597))
+
+## Clients
+
+* use minimal 'url' polyfil instead of url-shim ([#13545](https://github.com/GoogleChrome/lighthouse/pull/13545))
+* devtools: add FR runners to DevTools entry ([#13593](https://github.com/GoogleChrome/lighthouse/pull/13593))
+
+## I18n
+
+* import ([#13602](https://github.com/GoogleChrome/lighthouse/pull/13602))
+
+## Docs
+
+* update devtools panel throttling details ([#13504](https://github.com/GoogleChrome/lighthouse/pull/13504))
+
+## Tests
+
+* add snapshot tests for cli-flags.js ([#13596](https://github.com/GoogleChrome/lighthouse/pull/13596))
+* tweak some CI job names for clarity ([#13549](https://github.com/GoogleChrome/lighthouse/pull/13549))
+* split devtools ci into build, web-tests and smoke jobs ([#13546](https://github.com/GoogleChrome/lighthouse/pull/13546))
+* more targeted caching for devtools build ([#13540](https://github.com/GoogleChrome/lighthouse/pull/13540))
+* run most smoke tests on devtools ([#13456](https://github.com/GoogleChrome/lighthouse/pull/13456))
+* clean up and add comments to cdt layout test scripts ([#13471](https://github.com/GoogleChrome/lighthouse/pull/13471))
+* devtools: ensure WebSQL table is populated ([#13579](https://github.com/GoogleChrome/lighthouse/pull/13579))
+
+## Misc
+
+* add web.dev and other option to bug template ([#13537](https://github.com/GoogleChrome/lighthouse/pull/13537))
+* use codemod for optional chaining ([#13503](https://github.com/GoogleChrome/lighthouse/pull/13503))
+* build: fix build-smokehouse-bundle build ([#13500](https://github.com/GoogleChrome/lighthouse/pull/13500))
+* build: remove empty devtools report resources ([#13601](https://github.com/GoogleChrome/lighthouse/pull/13601))
+* build: set correct exit code when build scripts fail ([#13459](https://github.com/GoogleChrome/lighthouse/pull/13459))
+* git3po: only install latest git3po if out of date ([#13515](https://github.com/GoogleChrome/lighthouse/pull/13515))
+
+<a name="9.2.0"></a>
+# 9.2.0 (2021-12-15)
+[Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.1.0...v9.2.0)
+
+We expect this release to ship in the DevTools of [Chrome 99](https://chromiumdash.appspot.com/schedule), and to PageSpeed Insights within 2 weeks.
+
+## Notable Changes
+
+* move no-unload-listeners to perf category ([#13497](https://github.com/GoogleChrome/lighthouse/pull/13497))
+
+## Core
+
+* font-size: fix CSS selector regex ([#13455](https://github.com/GoogleChrome/lighthouse/pull/13455))
+* fcp: handle negative request `endTime` ([#13452](https://github.com/GoogleChrome/lighthouse/pull/13452))
+* legacy-javascript: update polyfilling, drop some signals ([#13482](https://github.com/GoogleChrome/lighthouse/pull/13482), [#13442](https://github.com/GoogleChrome/lighthouse/pull/13442))
+* cache fetch to avoid bad polyfills ([#13476](https://github.com/GoogleChrome/lighthouse/pull/13476))
+* check equality of computed artifacts using dependency keys ([#13430](https://github.com/GoogleChrome/lighthouse/pull/13430))
+
+## ⛏️👷 Fraggle Rock
+
+  Support for auditing user flows ([#11313](https://github.com/GoogleChrome/lighthouse/issues/11313))
+
+* compute timespan saving with observed throughput ([#13478](https://github.com/GoogleChrome/lighthouse/pull/13478))
+* option to skip about:blank jumps ([#13375](https://github.com/GoogleChrome/lighthouse/pull/13375))
+
+## Report
+
+* psi: update styles for tighter fit in narrow viewports ([#13355](https://github.com/GoogleChrome/lighthouse/pull/13355))
+
+## Deps
+
+* bump eslint and related items ([#13484](https://github.com/GoogleChrome/lighthouse/pull/13484))
+* axe-core: upgrade to 4.3.5 ([#13441](https://github.com/GoogleChrome/lighthouse/pull/13441))
+
+## Tests
+
+* smoke: fix chromestatus url ([#13475](https://github.com/GoogleChrome/lighthouse/pull/13475))
+* split smoke tests into one test per file ([#13461](https://github.com/GoogleChrome/lighthouse/pull/13461))
+* fix devtools build command ([#13457](https://github.com/GoogleChrome/lighthouse/pull/13457))
+* move sharding higher so smokehouse-bundle can also shard ([#13387](https://github.com/GoogleChrome/lighthouse/pull/13387))
+* port axe test to pptr ([#13450](https://github.com/GoogleChrome/lighthouse/pull/13450))
+
+## Misc
+
+* build: build test flow report to same path as sample-reports ([#13324](https://github.com/GoogleChrome/lighthouse/pull/13324))
+* treemap: add `lang` to html tag ([#13454](https://github.com/GoogleChrome/lighthouse/pull/13454))
+
 <a name="9.1.0"></a>
 # 9.1.0 (2021-11-24)
 [Full Changelog](https://github.com/GoogleChrome/lighthouse/compare/v9.0.0...v9.1.0)
@@ -6,7 +227,7 @@ We expect this release to ship in the DevTools of [Chrome 98](https://chromiumda
 
 ## New Contributors
 
-Thanks to our new contributors 👽🐷🐰🐯🐻! 
+Thanks to our new contributors 👽🐷🐰🐯🐻!
 
 - @whitep4nth3r
 - Adam Read @adamread
@@ -78,7 +299,7 @@ See the [What's new in Lighthouse 9.0 blog post](https://developer.chrome.com/bl
 
 ## New Contributors
 
-Thanks to our new contributors 👽🐷🐰🐯🐻! 
+Thanks to our new contributors 👽🐷🐰🐯🐻!
 
 - Sergii Bondarenko @BR0kEN-
 - Prerana Nawar @prerana1821
@@ -197,7 +418,7 @@ We expect this release to ship in the DevTools of [Chrome 97](https://chromiumda
 
 ## New Contributors
 
-Thanks to our new contributors 👽🐷🐰🐯🐻! 
+Thanks to our new contributors 👽🐷🐰🐯🐻!
 
 - meehawk @meehawk
 - Edwin Gustafson @edwingustafson
@@ -714,9 +935,9 @@ We expect this release to ship in the DevTools of [Chrome 93](https://chromiumda
   - CLS has been updated to its new, windowed
 definition ([#12554](https://github.com/GoogleChrome/lighthouse/pull/12554))
 
-  See the [v8.0 Performance FAQ](https://github.com/GoogleChrome/lighthouse/blob/master/docs/v8-perf-faq.md) for more detail.
+  See the [v8.0 Performance FAQ](https://github.com/GoogleChrome/lighthouse/blob/main/docs/v8-perf-faq.md) for more detail.
 
-  <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/v8-perf-faq.md"><img width="500" alt="the new metric weightings in the Lighthouse score calculator" src="https://user-images.githubusercontent.com/39191/120410971-de337100-c308-11eb-9fb6-368a33c0855e.png"></a>
+  <a href="https://github.com/GoogleChrome/lighthouse/blob/main/docs/v8-perf-faq.md"><img width="500" alt="the new metric weightings in the Lighthouse score calculator" src="https://user-images.githubusercontent.com/39191/120410971-de337100-c308-11eb-9fb6-368a33c0855e.png"></a>
 
 
 * The report includes a new metric filter. Pick a metric to focus on the opportunities and diagnostics most relevant to improving just that metric:
@@ -1244,7 +1465,7 @@ This release is expected to ship in the DevTools of [Chrome 89](https://chromium
    - The _Fast and reliable_ group has evaporated into thin air. 🌬 Now that revamped "installability requirements" audit includes offline-capability checking, we've removed the dedicated audits for checking if the current page and `start_url` respond with 200 when offline. Separately, the "Page load is fast enough on mobile network" audit was removed—while it's no longer part of the PWA section, we encourage folks building a PWA to consult the Performance category to ensure their web app is speedy and delightful.
 * A **nightly Lighthouse build** is now available as [`lighthouse@next`](https://www.npmjs.com/package/lighthouse?activeTab=versions) on npm. Note that while automated tests pass before publishing, it's expected that this version will be more unstable than the regular releases ([#11792](https://github.com/GoogleChrome/lighthouse/pull/11792), [#11805](https://github.com/GoogleChrome/lighthouse/pull/11805), [#11810](https://github.com/GoogleChrome/lighthouse/pull/11810))
 * The accessibility-testing library **`axe-core`** has been updated to the latest 4.1.1 release. The accessibility audits are now faster, more robust, and include multiple new checks ([#11661](https://github.com/GoogleChrome/lighthouse/pull/11661))
-* Lighthouse runs a small benchmark at startup, and will now include a warning if the [test machine appears underpowered](https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md#cpu-throttling) and may be affecting the accuracy of the Lighthouse metrics ([#11350](https://github.com/GoogleChrome/lighthouse/pull/11350))
+* Lighthouse runs a small benchmark at startup, and will now include a warning if the [test machine appears underpowered](https://github.com/GoogleChrome/lighthouse/blob/main/docs/throttling.md#cpu-throttling) and may be affecting the accuracy of the Lighthouse metrics ([#11350](https://github.com/GoogleChrome/lighthouse/pull/11350))
 * Joomla and October CMS detection has been added, so pages on those platforms will now get customized advice on some Lighthouse audits ([#11788](https://github.com/GoogleChrome/lighthouse/pull/11788))
 
 ## New contributors
@@ -1277,7 +1498,7 @@ These changes are unlikely to affect end users, but may be important if you are 
 * `ConsoleMessages` is a [new artifact](https://github.com/GoogleChrome/lighthouse/blob/a6738e0033e7e5ca308b97c1c36f298b7d399402/types/artifacts.d.ts#L753-L802) that is a combination of the old `ConsoleMessages` and `RuntimeExceptions` artifacts, with some expanded data on items logged to the console. `RuntimeExceptions` has been removed ([#11663](https://github.com/GoogleChrome/lighthouse/pull/11663))
 * DOM "node details" data formerly spread throughout existing artifacts are now gathered in a [`NodeDetails`](https://github.com/GoogleChrome/lighthouse/blob/a6738e0033e7e5ca308b97c1c36f298b7d399402/types/artifacts.d.ts#L150-L157) property on each element ([#11474](https://github.com/GoogleChrome/lighthouse/pull/11474), [#11695](https://github.com/GoogleChrome/lighthouse/pull/11695), [#11752](https://github.com/GoogleChrome/lighthouse/pull/11752))
 * The [`ImageElements` artifact](https://github.com/GoogleChrome/lighthouse/blob/a6738e0033e7e5ca308b97c1c36f298b7d399402/types/artifacts.d.ts#L395-L440) has been [streamlined](https://github.com/GoogleChrome/lighthouse/issues/11642) to better represent the data collected and how it's used ([#11703](https://github.com/GoogleChrome/lighthouse/pull/11703), [#11707](https://github.com/GoogleChrome/lighthouse/pull/11707), [#11733](https://github.com/GoogleChrome/lighthouse/pull/11733))
-* Previously, `extends: true` was allowed as an alias for `extends: 'lighthouse:default'` to [extend a config](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md#config-extension) from the default Lighthouse config file. The boolean option has been removed to prepare the way for extending from any valid config file ([#11835](https://github.com/GoogleChrome/lighthouse/pull/11835))
+* Previously, `extends: true` was allowed as an alias for `extends: 'lighthouse:default'` to [extend a config](https://github.com/GoogleChrome/lighthouse/blob/main/docs/configuration.md#config-extension) from the default Lighthouse config file. The boolean option has been removed to prepare the way for extending from any valid config file ([#11835](https://github.com/GoogleChrome/lighthouse/pull/11835))
 * A never-used feature to pass options from the config to gatherers has been removed to be compatible with future changes ([#11743](https://github.com/GoogleChrome/lighthouse/pull/11743))
 
 ## 🧱 Core
@@ -4319,10 +4540,10 @@ Thanks to @sanjsanj, @dennismartensson, @daannijkamp, @crimeminister!
 * `errors-in-console` best practice audit (#2836)
 * `no-vulnerable-libraries` best practice audit (#2372)
 
-### New audits in [full-config](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/full-config.js)
+### New audits in [full-config](https://github.com/GoogleChrome/lighthouse/blob/main/lighthouse-core/config/full-config.js)
 * `unused-javascript` coverage audit (#3085)
 
-### New audits in new [SEO config](https://github.com/GoogleChrome/lighthouse/blob/master/lighthouse-core/config/seo.js) (#2999)
+### New audits in new [SEO config](https://github.com/GoogleChrome/lighthouse/blob/main/lighthouse-core/config/seo.js) (#2999)
 * `meta-description` SEO audit (#3227)
 * `http-status-code` SEO audit (#3311)
 

@@ -44,8 +44,7 @@ function getScreenDimensions(reportResult: LH.Result) {
 function getFullPageScreenshot(reportResult: LH.Result) {
   const fullPageScreenshotAudit = reportResult.audits['full-page-screenshot'];
   const fullPageScreenshot =
-    fullPageScreenshotAudit &&
-    fullPageScreenshotAudit.details &&
+    fullPageScreenshotAudit?.details &&
     fullPageScreenshotAudit.details.type === 'full-page-screenshot' &&
     fullPageScreenshotAudit.details;
 
@@ -98,7 +97,7 @@ function useHashParams(...params: string[]) {
   return paramValues;
 }
 
-function useHashState(): LH.FlowResult.HashState|null {
+function useHashState(): LH.HashState|null {
   const flowResult = useFlowResult();
   const [indexString, anchor] = useHashParams('index', 'anchor');
 
@@ -138,7 +137,7 @@ function useExternalRenderer<T extends Element>(
     if (!ref.current) return;
 
     const root = renderCallback();
-    ref.current.appendChild(root);
+    ref.current.append(root);
 
     return () => {
       if (ref.current?.contains(root)) ref.current.removeChild(root);

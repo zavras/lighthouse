@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use strict';
 
 /** @template T @typedef {import('./i18n').I18n<T>} I18n */
 
@@ -52,6 +51,28 @@ class Util {
   }
 
   /**
+   * If LHR is older than 10.0 it will not have the `finalDisplayedUrl` property.
+   * Old LHRs should have the `finalUrl` property which will work fine for the report.
+   *
+   * @param {LH.Result} lhr
+   */
+  static getFinalDisplayedUrl(lhr) {
+    if (lhr.finalDisplayedUrl) return lhr.finalDisplayedUrl;
+    if (lhr.finalUrl) return lhr.finalUrl;
+    throw new Error('Could not determine final displayed URL');
+  }
+
+  /**
+   * If LHR is older than 10.0 it will not have the `mainDocumentUrl` property.
+   * Old LHRs should have the `finalUrl` property which is the same as `mainDocumentUrl`.
+   *
+   * @param {LH.Result} lhr
+   */
+  static getMainDocumentUrl(lhr) {
+    return lhr.mainDocumentUrl || lhr.finalUrl;
+  }
+
+  /**
    * Returns a new LHR that's reshaped for slightly better ergonomics within the report rendereer.
    * Also, sets up the localized UI strings used within renderer and makes changes to old LHRs to be
    * compatible with current renderer.
@@ -72,6 +93,9 @@ class Util {
       // @ts-expect-error fallback handling for emulatedFormFactor
       clone.configSettings.formFactor = clone.configSettings.emulatedFormFactor;
     }
+
+    clone.finalDisplayedUrl = this.getFinalDisplayedUrl(clone);
+    clone.mainDocumentUrl = this.getMainDocumentUrl(clone);
 
     for (const audit of Object.values(clone.audits)) {
       // Turn 'not-applicable' (LHR <4.0) and 'not_applicable' (older proto versions)
@@ -96,6 +120,33 @@ class Util {
           for (const screenshot of audit.details.items) {
             if (!screenshot.data.startsWith(SCREENSHOT_PREFIX)) {
               screenshot.data = SCREENSHOT_PREFIX + screenshot.data;
+            }
+          }
+        }
+
+        // Circa 10.0, table items were refactored.
+        if (audit.details.type === 'table') {
+          for (const heading of audit.details.headings) {
+            /** @type {{itemType: LH.Audit.Details.ItemValueType|undefined, text: string|undefined}} */
+            // @ts-expect-error
+            const {itemType, text} = heading;
+            if (itemType !== undefined) {
+              heading.valueType = itemType;
+              // @ts-expect-error
+              delete heading.itemType;
+            }
+            if (text !== undefined) {
+              heading.label = text;
+              // @ts-expect-error
+              delete heading.text;
+            }
+
+            // @ts-expect-error
+            const subItemsItemType = heading.subItemsHeading?.itemType;
+            if (heading.subItemsHeading && subItemsItemType !== undefined) {
+              heading.subItemsHeading.valueType = subItemsItemType;
+              // @ts-expect-error
+              delete heading.subItemsHeading.itemType;
             }
           }
         }
@@ -315,24 +366,26 @@ class Util {
     }
 
     const MAX_LENGTH = 64;
-    // Always elide hexadecimal hash
-    name = name.replace(/([a-f0-9]{7})[a-f0-9]{13}[a-f0-9]*/g, `$1${ELLIPSIS}`);
-    // Also elide other hash-like mixed-case strings
-    name = name.replace(/([a-zA-Z0-9-_]{9})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{10,}/g,
-      `$1${ELLIPSIS}`);
-    // Also elide long number sequences
-    name = name.replace(/(\d{3})\d{6,}/g, `$1${ELLIPSIS}`);
-    // Merge any adjacent ellipses
-    name = name.replace(/\u2026+/g, ELLIPSIS);
+    if (parsedUrl.protocol !== 'data:') {
+      // Always elide hexadecimal hash
+      name = name.replace(/([a-f0-9]{7})[a-f0-9]{13}[a-f0-9]*/g, `$1${ELLIPSIS}`);
+      // Also elide other hash-like mixed-case strings
+      name = name.replace(/([a-zA-Z0-9-_]{9})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9-_]{10,}/g,
+        `$1${ELLIPSIS}`);
+      // Also elide long number sequences
+      name = name.replace(/(\d{3})\d{6,}/g, `$1${ELLIPSIS}`);
+      // Merge any adjacent ellipses
+      name = name.replace(/\u2026+/g, ELLIPSIS);
 
-    // Elide query params first
-    if (name.length > MAX_LENGTH && name.includes('?')) {
-      // Try to leave the first query parameter intact
-      name = name.replace(/\?([^=]*)(=)?.*/, `?$1$2${ELLIPSIS}`);
+      // Elide query params first
+      if (name.length > MAX_LENGTH && name.includes('?')) {
+        // Try to leave the first query parameter intact
+        name = name.replace(/\?([^=]*)(=)?.*/, `?$1$2${ELLIPSIS}`);
 
-      // Remove it all if it's still too long
-      if (name.length > MAX_LENGTH) {
-        name = name.replace(/\?.*/, `?${ELLIPSIS}`);
+        // Remove it all if it's still too long
+        if (name.length > MAX_LENGTH) {
+          name = name.replace(/\?.*/, `?${ELLIPSIS}`);
+        }
       }
     }
 
@@ -428,10 +481,11 @@ class Util {
         break;
       case 'devtools': {
         const {cpuSlowdownMultiplier, requestLatencyMs} = throttling;
+        // eslint-disable-next-line max-len
         cpuThrottling = `${Util.i18n.formatNumber(cpuSlowdownMultiplier)}x slowdown (DevTools)`;
-        networkThrottling = `${Util.i18n.formatNumber(requestLatencyMs)}${NBSP}ms HTTP RTT, ` +
-          `${Util.i18n.formatNumber(throttling.downloadThroughputKbps)}${NBSP}Kbps down, ` +
-          `${Util.i18n.formatNumber(throttling.uploadThroughputKbps)}${NBSP}Kbps up (DevTools)`;
+        networkThrottling = `${Util.i18n.formatMilliseconds(requestLatencyMs)} HTTP RTT, ` +
+          `${Util.i18n.formatKbps(throttling.downloadThroughputKbps)} down, ` +
+          `${Util.i18n.formatKbps(throttling.uploadThroughputKbps)} up (DevTools)`;
 
         const isSlow4G = () => {
           return requestLatencyMs === 150 * 3.75 &&
@@ -443,9 +497,10 @@ class Util {
       }
       case 'simulate': {
         const {cpuSlowdownMultiplier, rttMs, throughputKbps} = throttling;
+        // eslint-disable-next-line max-len
         cpuThrottling = `${Util.i18n.formatNumber(cpuSlowdownMultiplier)}x slowdown (Simulated)`;
-        networkThrottling = `${Util.i18n.formatNumber(rttMs)}${NBSP}ms TCP RTT, ` +
-          `${Util.i18n.formatNumber(throughputKbps)}${NBSP}Kbps throughput (Simulated)`;
+        networkThrottling = `${Util.i18n.formatMilliseconds(rttMs)} TCP RTT, ` +
+          `${Util.i18n.formatKbps(throughputKbps)} throughput (Simulated)`;
 
         const isSlow4G = () => {
           return rttMs === 150 && throughputKbps === 1.6 * 1024;
@@ -565,15 +620,16 @@ class Util {
  */
 Util.reportJson = null;
 
+let svgSuffix = 0;
 /**
  * An always-increasing counter for making unique SVG ID suffixes.
  */
-Util.getUniqueSuffix = (() => {
-  let svgSuffix = 0;
-  return function() {
-    return svgSuffix++;
-  };
-})();
+Util.getUniqueSuffix = () => {
+  return svgSuffix++;
+};
+Util.resetUniqueSuffix = () => {
+  svgSuffix = 0;
+};
 
 /**
  * Report-renderer-specific strings.
@@ -627,6 +683,10 @@ const UIStrings = {
   thirdPartyResourcesLabel: 'Show 3rd-party resources',
   /** This label is for a button that opens a new tab to a webapp called "Treemap", which is a nested visual representation of a heierarchy of data related to the reports (script bytes and coverage, resource breakdown, etc.) */
   viewTreemapLabel: 'View Treemap',
+  /** This label is for a button that will show the user a trace of the page. */
+  viewTraceLabel: 'View Trace',
+  /** This label is for a button that will show the user a trace of the page. */
+  viewOriginalTraceLabel: 'View Original Trace',
 
   /** Option in a dropdown menu that opens a small, summary report in a print dialog.  */
   dropdownPrintSummary: 'Print Summary',
