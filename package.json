@@ -189,7 +189,7 @@
     "configstore": "^5.0.1",
     "csp_evaluator": "1.1.1",
     "enquirer": "^2.3.6",
-    "http-link-header": "^0.8.0",
+    "http-link-header": "^1.1.0",
     "intl-messageformat": "^4.4.0",
     "jpeg-js": "^0.4.4",
     "js-library-detector": "^6.5.0",
